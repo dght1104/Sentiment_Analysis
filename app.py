@@ -1,17 +1,23 @@
 from textblob import TextBlob
 import streamlit as st
+from googletrans import Translator
 
 def analyze_sentiment(text):
-    blob = TextBlob(text)
-    sentiment=blob.sentiment.polarity
+    translator = Translator()
+    # Dịch văn bản sang tiếng Anh
+    translated_text = translator.translate(text, src='vi', dest='en').text
+    # Phân tích cảm xúc
+    blob = TextBlob(translated_text)
+    sentiment = blob.sentiment.polarity  # Lấy điểm cảm xúc
 
     if sentiment >0:
-        return "positive"
+        return "positive" ,sentiment
     elif sentiment < 0:
-        return "negative"
+        return "negative" ,sentiment
     else:
-        return "neutral"
-    
+        return "neutral", sentiment
+
+
 st.title("tetsttt")
 input=st.text_area("fsdfsd: ")
 button=st.button("check")
