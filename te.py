@@ -1,32 +1,46 @@
-from transformers import AutoTokenizer, AutoModelForSequenceClassification
-import torch
+import os
+import pandas as pd
+from vietnamese_nlp.sentiment_analysis import SentimentAnalyzer
 
-# Kiểm tra xem có GPU không
-device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+# Khởi tạo đối tượng phân tích cảm xúc
+analyzer = SentimentAnalyzer()
 
-# Tải tokenizer và mô hình PhoBERT
-tokenizer = AutoTokenizer.from_pretrained("vinai/phobert-base")
-model = AutoModelForSequenceClassification.from_pretrained("vinai/phobert-base", num_labels=3)
+# Đọc tệp CSV vào DataFrame
+data_path = r"d:\Y4 HK1\Sentiment_Analysis\datasheet\amazon_reviews.csv"
+df = pd.read_csv(data_path)
 
-# Đưa mô hình vào device (GPU hoặc CPU)
-model.to(device)
-
-# Xử lý câu văn
-sentence = "Tôi rất hài lòng với sản phẩm này"
-tokens = tokenizer(sentence, return_tensors="pt").to(device)
-
-# Dự đoán cảm xúc
-outputs = model(**tokens)
-
-# Lấy kết quả phân loại
-predicted_class = torch.argmax(outputs.logits, dim=1).item()
-
-print(f"Giá trị của cảm xúc: {predicted_class}")
-
-# In ra kết quả phân loại
-if predicted_class == 0:
-    print("Sentiment: Negative")
-elif predicted_class == 1:
-    print("Sentiment: Neutral")
+# Kiểm tra xem DataFrame có cột 'reviewText' không
+if 'reviewText' in df.columns:
+    # Thay thế NaN trong cột 'reviewText' bằng chuỗi rỗng
+    df['reviewText'] = df['reviewText'].fillna('')
 else:
-    print("Sentiment: Positive")
+    print("Cột 'reviewText' không tồn tại trong dữ liệu.")
+    exit()
+
+# Tạo danh sách để lưu kết quả phân tích cảm xúc
+results = []
+
+# Duyệt qua từng dòng trong cột 'reviewText' và phân tích cảm xúc
+for text in df['reviewText']:
+    sentiment, score = analyzer.analyze_sentiment(text)
+    results.append({"reviewText": text, "sentiment": sentiment, "score": score})
+
+# Tạo DataFrame mới từ kết quả phân tích cảm xúc
+results_df = pd.DataFrame(results)
+
+# Đảm bảo thư mục 'data' tồn tại trước khi lưu tệp
+output_dir = os.path.join("datasheet")
+if not os.path.exists(output_dir):
+    os.makedirs(output_dir)
+
+# Đường dẫn lưu tệp CSV kết quả
+output_path = os.path.join(output_dir, "amazon_reviews_with_sentiment.csv")
+results_df.to_csv(output_path, index=False)
+
+# In kết quả
+print(f"Kết quả phân tích cảm xúc đã được lưu vào {output_path}")
+
+# Đọc lại và hiển thị 5 dòng đầu tiên
+df_result = pd.read_csv(output_path)
+print("5 dòng đầu tiên của kết quả phân tích cảm xúc:")
+print(df_result.head(5))
