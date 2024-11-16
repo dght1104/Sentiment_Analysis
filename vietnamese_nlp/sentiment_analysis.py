@@ -14,9 +14,9 @@ class SentimentAnalyzer:
         polarity = blob.sentiment.polarity  # Trả về điểm số từ -1 đến 1
 
         # Phân loại cảm xúc dựa trên độ phân cực (polarity)
-        if polarity > 0:
+        if polarity >= 0.1:
             return "Positive", polarity
-        elif polarity < 0:
+        elif polarity <=  -0.1:
             return "Negative", polarity
         else:
             return "Neutral", polarity
@@ -69,7 +69,8 @@ class SentimentAnalyzer:
             return "Neutral", average_polarity
     
 # Văn bản mẫu
-text = "Winter blues got me feeling low."
+text = "Political discussions heating up on the timeline."
+print(f"Text: {text}")
 
 # Phân tích cảm xúc bằng VADER
 test_vader = SentimentAnalyzer.analyze_sentiment_Vader(text)

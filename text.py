@@ -9,6 +9,7 @@ analyzer = SentimentAnalyzer()
 data_path = r"d:\Y4 HK1\Sentiment_Analysis\datasheet\amazon_reviews.csv"
 df = pd.read_csv(data_path)
 
+
 # Kiểm tra xem DataFrame có cột 'reviewText' không
 if 'reviewText' in df.columns:
     # Thay thế NaN trong cột 'reviewText' bằng chuỗi rỗng

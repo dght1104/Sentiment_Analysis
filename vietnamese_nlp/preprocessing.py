@@ -1,7 +1,7 @@
 import re
 import pyvi
 class TextPreprocessor:
-    stop_words = {"là", "của", "và", "những", "được", "có", "trong", "một", "khi", "nếu", "thì"}
+    stop_words = {"is", "of", "and", "the", "a", "to", "in", "if", "then"}
 
     @staticmethod
     def to_lowercase(text):
