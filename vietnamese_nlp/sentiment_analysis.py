@@ -50,12 +50,12 @@ class SentimentAnalyzer:
             return "Negative", compound_score
         else:
             return "Neutral", compound_score
-       
-    def analyze_sentiment(self, text):
-        # Gọi các phương thức phân tích cảm xúc và lấy điểm số từ mỗi phương thức
-        sentiment_textblob, score_textblob = self.analyze_sentiment_TextBlob(text)
-        sentiment_vader, score_vader = self.analyze_sentiment_Vader(text)
-        sentiment_nltk, score_nltk = self.analyze_sentiment_nltk(text)
+
+    @staticmethod
+    def analyze_sentiment(text):
+        sentiment_textblob, score_textblob = SentimentAnalyzer.analyze_sentiment_TextBlob(text)
+        sentiment_vader, score_vader = SentimentAnalyzer.analyze_sentiment_Vader(text)
+        sentiment_nltk, score_nltk = SentimentAnalyzer.analyze_sentiment_nltk(text)
 
         # Tính điểm trung bình từ các điểm số
         average_polarity = (score_textblob + score_vader + score_nltk) / 3
@@ -69,7 +69,7 @@ class SentimentAnalyzer:
             return "Neutral", average_polarity
     
 # Văn bản mẫu
-text = "Political discussions heating up on the timeline."
+text = "This item didn't disappoint. It's sturdy, has all the screws included for different flat screen models and yes, it works well."
 print(f"Text: {text}")
 
 # Phân tích cảm xúc bằng VADER
@@ -85,6 +85,5 @@ test_nltk = SentimentAnalyzer.analyze_sentiment_nltk(text)
 print(f"NLTK Sentiment: {test_nltk}")
 
 # Phân tích cảm xúc tổng hợp
-analyzer = SentimentAnalyzer()
-text_overall = analyzer.analyze_sentiment(text)
+text_overall = SentimentAnalyzer.analyze_sentiment(text)  # Gọi trực tiếp từ lớp
 print(f"Overall Sentiment: {text_overall}")
