@@ -60,30 +60,40 @@ class SentimentAnalyzer:
         # Tính điểm trung bình từ các điểm số
         average_polarity = (score_textblob + score_vader + score_nltk) / 3
 
-        # Phân loại cảm xúc dựa trên điểm trung bình
         if average_polarity > 0.1:
-            return "Positive", average_polarity
+            overall_sentiment = "Positive"
         elif average_polarity < -0.1:
-            return "Negative", average_polarity
+            overall_sentiment = "Negative"
         else:
-            return "Neutral", average_polarity
+            overall_sentiment = "Neutral"
+
+        return {
+            "sentiment_textblob": sentiment_textblob,
+            "score_textblob": score_textblob,
+            "sentiment_vader": sentiment_vader,
+            "score_vader": score_vader,
+            "sentiment_nltk": sentiment_nltk,
+            "score_nltk": score_nltk,
+            "overall_sentiment": overall_sentiment,
+            "average_polarity": average_polarity
+        }
     
-# Văn bản mẫu
-text = "This item didn't disappoint. It's sturdy, has all the screws included for different flat screen models and yes, it works well."
-print(f"Text: {text}")
+# # Văn bản mẫu
+# text = "This item didn't disappoint. It's sturdy, has all the screws included for different flat screen models and yes, it works well."
+# print(f"Text: {text}")
 
-# Phân tích cảm xúc bằng VADER
-test_vader = SentimentAnalyzer.analyze_sentiment_Vader(text)
-print(f"VADER Sentiment: {test_vader}")
+# # Phân tích cảm xúc bằng VADER
+# test_vader = SentimentAnalyzer.analyze_sentiment_Vader(text)
+# print(f"VADER Sentiment: {test_vader}")
 
-# Phân tích cảm xúc bằng TextBlob
-test_textblob = SentimentAnalyzer.analyze_sentiment_TextBlob(text)
-print(f"TextBlob Sentiment: {test_textblob}")
+# # Phân tích cảm xúc bằng TextBlob
+# test_textblob = SentimentAnalyzer.analyze_sentiment_TextBlob(text)
+# print(f"TextBlob Sentiment: {test_textblob}")
 
-# Phân tích cảm xúc bằng NLTK VADER
-test_nltk = SentimentAnalyzer.analyze_sentiment_nltk(text)
-print(f"NLTK Sentiment: {test_nltk}")
+# # Phân tích cảm xúc bằng NLTK VADER
+# test_nltk = SentimentAnalyzer.analyze_sentiment_nltk(text)
+# print(f"NLTK Sentiment: {test_nltk}")
 
-# Phân tích cảm xúc tổng hợp
-text_overall = SentimentAnalyzer.analyze_sentiment(text)  # Gọi trực tiếp từ lớp
-print(f"Overall Sentiment: {text_overall}")
+# # Phân tích cảm xúc tổng hợp
+# text_overall = SentimentAnalyzer.analyze_sentiment(text)  # Gọi trực tiếp từ lớp
+# print(f"Overall Sentiment: {text_overall}")

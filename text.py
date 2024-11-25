@@ -1,4 +1,6 @@
+import sys
 import os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), 'vietnamese_nlp')))
 import pandas as pd
 from vietnamese_nlp.analysis import TextAnalysis  # Đảm bảo 'analysis.py' chứa lớp TextAnalysis
 
@@ -33,14 +35,14 @@ for text in df['reviewText']:
             "reviewText": text,
             "cleaned_text": result['cleaned_text'],
             "tokens": result['tokens'],
-            "sentiment_vader": result.get('sentiment_vader'),
-            "score_vader": result.get('score_vader'),
-            "sentiment_textblob": result.get('sentiment_textblob'),
-            "score_textblob": result.get('score_textblob'),
-            "sentiment_nltk": result.get('sentiment_nltk'),
-            "score_nltk": result.get('score_nltk'),
-            "overall_sentiment": result.get('overall_sentiment'),
-            "average_polarity": result.get('average_polarity')
+            "sentiment_vader": result['sentiment_vader'],
+            "score_vader": result['score_vader'],
+            "sentiment_textblob": result['sentiment_textblob'],
+            "score_textblob": result['score_textblob'],
+            "sentiment_nltk": result['sentiment_nltk'],
+            "score_nltk": result['score_nltk'],
+            "overall_sentiment": result['overall_sentiment'],
+            "average_polarity": result['average_polarity']
         })
     except Exception as e:
         print(f"Không thể phân tích cảm xúc cho văn bản: {text}\nLỗi: {e}")
@@ -48,7 +50,7 @@ for text in df['reviewText']:
 # Tạo DataFrame mới từ kết quả phân tích cảm xúc
 results_df = pd.DataFrame(results)
 
-# Đảm bảo thư mục 'data' tồn tại trước khi lưu tệp
+# Đảm bảo thư mục 'datasheet' tồn tại trước khi lưu tệp
 output_dir = os.path.join("datasheet")
 os.makedirs(output_dir, exist_ok=True)
 
@@ -59,7 +61,7 @@ results_df.to_csv(output_path, index=False)
 # In kết quả
 print(f"Kết quả phân tích cảm xúc đã được lưu vào {output_path}")
 
-# Đọc lại và hiển thị 5 dòng đầu tiên
+# Đọc lại và hiển thị 5 dòng đầu tiên sau khi lưu
 df_result = pd.read_csv(output_path)
 print("5 dòng đầu tiên của kết quả phân tích cảm xúc:")
 print(df_result.head(5))

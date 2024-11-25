@@ -1,5 +1,6 @@
+# vietnamese_nlp/preprocessing.py
 import re
-import pyvi
+
 class TextPreprocessor:
     stop_words = {"is", "of", "and", "the", "a", "to", "in", "if", "then"}
 
@@ -28,7 +29,3 @@ class TextPreprocessor:
         text = cls.remove_extra_whitespace(text)
         text = cls.remove_stop_words(text)
         return text
-
-# text = "Trong khi chúng ta đang học lập trình, có nhiều thách thức nhưng cũng có những niềm vui."
-# processed_text = TextPreprocessor.preprocess(text)
-# print("Kết quả sau khi xử lý:", processed_text)

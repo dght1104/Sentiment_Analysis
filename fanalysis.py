@@ -44,18 +44,18 @@ class TextAnalysis:
         }
 
 
-# text = "This item didn't disappoint. It's sturdy, has all the screws included for different flat screen models and yes, it works well."
-# analyzer = TextAnalysis()
+text = "This item didn't disappoint. It's sturdy, has all the screws included for different flat screen models and yes, it works well."
+analyzer = TextAnalysis()
 
-# # Phân tích văn bản
-# result = analyzer.analyze_text(text)
+# Phân tích văn bản
+result = analyzer.analyze_text(text)
 
-#     # In kết quả
-# print("Original Text:", result["original_text"])
-# print("Cleaned Text:", result["cleaned_text"])
-# print("Tokens:", result["tokens"])
-# print("VADER Sentiment:", result["sentiment_vader"], "Score:", result["score_vader"])
-# print("TextBlob Sentiment:", result["sentiment_textblob"], "Score:", result["score_textblob"])
-# print("NLTK Sentiment:", result["sentiment_nltk"], "Score:", result["score_nltk"])
-# print("Overall Sentiment:", result["overall_sentiment"])
-# print("Average Polarity:", result["average_polarity"])
+    # In kết quả
+print("Original Text:", result["original_text"])
+print("Cleaned Text:", result["cleaned_text"])
+print("Tokens:", result["tokens"])
+print("VADER Sentiment:", result["sentiment_vader"], "Score:", result["score_vader"])
+print("TextBlob Sentiment:", result["sentiment_textblob"], "Score:", result["score_textblob"])
+print("NLTK Sentiment:", result["sentiment_nltk"], "Score:", result["score_nltk"])
+print("Overall Sentiment:", result["overall_sentiment"])
+print("Average Polarity:", result["average_polarity"])

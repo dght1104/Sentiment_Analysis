@@ -1,8 +1,10 @@
-# analysis.py
-
-from tokenization import VietnameseTokenizer
+# vietnamese_nlp/analysis.py
 from preprocessing import TextPreprocessor
+from tokenization import VietnameseTokenizer
 from sentiment_analysis import SentimentAnalyzer
+import sys
+import os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '.')))
 
 class TextAnalysis:
     def __init__(self):
@@ -26,23 +28,22 @@ class TextAnalysis:
         clean_text = self.preprocess_text(text)
         tokens = self.tokenize_text(clean_text)
 
-        # Phân tích cảm xúc
-        sentiment_result = self.sentiment_analyzer.analyze_sentiment(' '.join(tokens))
+        # Phân tích cảm xúc bằng SentimentAnalyzer
+        sentiment_result = SentimentAnalyzer.analyze_sentiment(text)
 
         return {
             "original_text": text,
             "cleaned_text": clean_text,
             "tokens": tokens,
-            "sentiment_vader": sentiment_result[0],
-            "score_vader": sentiment_result[1],
-            "sentiment_textblob": sentiment_result[0],
-            "score_textblob": sentiment_result[1],
-            "sentiment_nltk": sentiment_result[0],
-            "score_nltk": sentiment_result[1],
-            "overall_sentiment": sentiment_result[0],
-            "average_polarity": sentiment_result[1]
+            "sentiment_textblob": sentiment_result["sentiment_textblob"],
+            "score_textblob": sentiment_result["score_textblob"],
+            "sentiment_vader": sentiment_result["sentiment_vader"],
+            "score_vader": sentiment_result["score_vader"],
+            "sentiment_nltk": sentiment_result["sentiment_nltk"],
+            "score_nltk": sentiment_result["score_nltk"],
+            "overall_sentiment": sentiment_result["overall_sentiment"],
+            "average_polarity": sentiment_result["average_polarity"]
         }
-
 
 # text = "This item didn't disappoint. It's sturdy, has all the screws included for different flat screen models and yes, it works well."
 # analyzer = TextAnalysis()
