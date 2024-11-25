@@ -1,6 +1,6 @@
 import os
 import pandas as pd
-from analysis import TextAnalysis  # Đảm bảo 'analysis.py' chứa lớp TextAnalysis
+from vietnamese_nlp.analysis import TextAnalysis  # Đảm bảo 'analysis.py' chứa lớp TextAnalysis
 
 # Khởi tạo đối tượng phân tích cảm xúc từ 'analysis'
 analyzer = TextAnalysis()  # Đối tượng phân tích với tiền xử lý, tokenization và phân tích cảm xúc
@@ -49,7 +49,7 @@ for text in df['reviewText']:
 results_df = pd.DataFrame(results)
 
 # Đảm bảo thư mục 'data' tồn tại trước khi lưu tệp
-output_dir = os.path.join("data")
+output_dir = os.path.join("datasheet")
 os.makedirs(output_dir, exist_ok=True)
 
 # Đường dẫn lưu tệp CSV kết quả
