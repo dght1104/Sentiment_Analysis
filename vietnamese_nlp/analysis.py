@@ -45,7 +45,7 @@ class TextAnalysis:
             "average_polarity": sentiment_result["average_polarity"]
         }
 
-# text = "This item didn't disappoint. It's sturdy, has all the screws included for different flat screen models and yes, it works well."
+# text = "she has been loved Nhi for 5 years but Nhi hasn't loved her"
 # analyzer = TextAnalysis()
 
 # # Phân tích văn bản

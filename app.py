@@ -24,10 +24,16 @@ if button:
             sentiment_result = analyzer.analyze_text(input_text)
 
             # Truy xuất kết quả cảm xúc và điểm số từ dictionary
+            sentimentTextblob = sentiment_result["sentiment_textblob"]
+            sentimentVander = sentiment_result["sentiment_vader"]
+            sentimentNltk = sentiment_result["sentiment_nltk"]
             sentiment = sentiment_result["overall_sentiment"]
             score = sentiment_result["average_polarity"]
 
             # Hiển thị kết quả
+            st.write("VADER Sentiment: ", sentimentVander)
+            st.write("TextBlod Sentiment: ",  sentimentTextblob )
+            st.write("Nltk Sentiment: ", sentimentNltk)
             st.write("Sentiment: ", sentiment)
             st.write("Average Polarity Score: ", score)
         except KeyError as e:
